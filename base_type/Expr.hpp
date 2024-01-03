@@ -18,7 +18,9 @@ template <size_t _SubExprNum, typename _ValueTy, typename... _Expr>
 struct Expr;
 
 template <typename _ValueTy>
-struct Expr<0, _ValueTy>;
+struct Expr<0, _ValueTy> {
+  using is_single = std::true_type;
+};
 
 template <typename _ValueTy>
 using EmptyExpr = Expr<0, _ValueTy>;
@@ -46,10 +48,12 @@ struct Expr<1, _ValueTy, _SubExpr, _Expr...> {
  */
 
 template <size_t _ItemNum, typename _ValueTy, typename... _SubExpr>
-struct SubExpr{};
+struct SubExpr;
 
 template <typename _ValueTy>
-struct SubExpr<0, _ValueTy> empty_subexpr = {};
+struct SubExpr<0, _ValueTy> {
+  using is_single = std::true_type;
+};
 
 template <typename _ValueTy>
 using EmptySubExpr = SubExpr<0, _ValueTy>;

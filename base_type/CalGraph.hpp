@@ -1,8 +1,10 @@
 #pragma once
 
+#include <array>
 #include <cstdlib>
 #include <type_traits>
-#include <vcruntime.h>
+
+#include "CalNode.hpp"
 
 namespace autodiff {
 
@@ -14,7 +16,7 @@ namespace graph {
  * - (which includes operation, left-node, right-node)
  * store graph with adjacent matrix
  */
-template <size_t _Size, typename... _Expr> struct CalGraph {
+template <size_t _Size, typename _ValueTy, typename... _Expr> struct CalGraph {
   const size_t node_size = _Size;
 };
 
@@ -55,6 +57,7 @@ template <size_t _Size, typename... _Expr> struct CalGraph {
 //     -> CalGraph<0, _Node> {
 //   return CalGraph{node};
 // }
+
 
 } // namespace graph
 } // namespace autodiff

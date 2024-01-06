@@ -1,25 +1,26 @@
-// #pragma once
+#pragma once
 
-// // #include "__decl__.hpp"
-// #include "Expr.hpp"
+#include "CalGraph.hpp"
+#include <vcruntime.h>
 
-// /**
-//  * @brief the virtual base class of binary operations
-//  * every binary operation should inherit it and realize the pure virtual
-//  * function value()
-//  *
-//  * @tparam TOperate the operation function
-//  * @tparam TLHS left hand side type
-//  * @tparam TRHS right hand side type
-//  * @tparam TValue element value type
-//  */
-// template <typename TOperate, typename TLhs, typename TRlhs, typename TValue = float>
-// struct BinaryOperate : public Expr<BinaryOperate<TOperate, TLhs, TRlhs, TValue>> {
-//   /**
-//    * @brief delayed evaluation
-//    *
-//    * @return TValue the element value
-//    */
-//   virtual TValue value() = 0;
-// };
+namespace autodiff {
+namespace operation {
 
+template <typename _Operation, typename _LNode, typename _RNode>
+struct OperationTriple {
+  using op_type = _Operation;
+  using ltype = _LNode;
+  using rtype = _RNode;
+};
+
+template <size_t _Size, typename... _Item> struct LinkTable;
+
+template <size_t _Size, typename _OneItem, typename... _Item>
+struct LinkTable<_Size, _OneItem, _Item...> {};
+
+template <typename... _OperationTriple> struct OutTable {};
+
+template <typename... _OperationTriple> struct InTable {};
+
+} // namespace operation
+} // namespace autodiff

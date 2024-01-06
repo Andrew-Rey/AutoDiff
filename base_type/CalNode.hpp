@@ -1,27 +1,26 @@
-// #pragma once
+#pragma once
 
-// #include <vector>
+#include "CalGraph.hpp"
+#include "Operation.hpp"
 
-// // #include "__decl__.hpp"
+namespace autodiff {
 
-// #include "Expr.hpp"
+using namespace operation;
+using namespace graph;
 
-// template <typename TValue>
-// struct CalNode : public Expr<CalNode<TValue>> {
-//   CalNode() = default;
-//   CalNode(const TValue& value) : _value(value) {}
-//   CalNode(const CalNode& other) : _value(other._value) {}
-//   CalNode(TValue&& value) : _value(value) {}
+namespace node {
 
-//   inline TValue value() const { return _value; }
+template <typename _ValueTy> struct CalNode {
+  const _ValueTy &value;
+};
 
-//   template <typename TSubExpr>
-//   inline CalNode& operator=(const Expr<TSubExpr>& sub) {
-//     const TSubExpr& src = sub.self();
-//     this->_value = src.value();
-//     return *this;
-//   }
+/**
+ * link two nodes from `_LNode` to `_RNode`
+ */
+template <typename _Operation, typename _LNode, typename _RNode>
+constexpr auto link() {
+  return OperationTriple<_Operation, _LNode, _RNode>{};
+}
 
-//  private:
-//   TValue _value;
-// };
+} // namespace node
+} // namespace autodiff

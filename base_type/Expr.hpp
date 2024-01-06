@@ -14,16 +14,13 @@
  * @brief expression definition
  */
 
-template <size_t _SubExprNum, typename _ValueTy, typename... _Expr>
-struct Expr;
+template <size_t _SubExprNum, typename _ValueTy, typename... _Expr> struct Expr;
 
-template <typename _ValueTy>
-struct Expr<0, _ValueTy> {
+template <typename _ValueTy> struct Expr<0, _ValueTy> {
   using is_single = std::true_type;
 };
 
-template <typename _ValueTy>
-using EmptyExpr = Expr<0, _ValueTy>;
+template <typename _ValueTy> using EmptyExpr = Expr<0, _ValueTy>;
 
 template <size_t _SubExprNum, typename _ValueTy, typename _SubExpr,
           typename... _Expr>
@@ -50,13 +47,11 @@ struct Expr<1, _ValueTy, _SubExpr, _Expr...> {
 template <size_t _ItemNum, typename _ValueTy, typename... _SubExpr>
 struct SubExpr;
 
-template <typename _ValueTy>
-struct SubExpr<0, _ValueTy> {
+template <typename _ValueTy> struct SubExpr<0, _ValueTy> {
   using is_single = std::true_type;
 };
 
-template <typename _ValueTy>
-using EmptySubExpr = SubExpr<0, _ValueTy>;
+template <typename _ValueTy> using EmptySubExpr = SubExpr<0, _ValueTy>;
 
 template <size_t _ItemNum, typename _ValueTy, typename _Item,
           typename... _SubExpr>
@@ -80,6 +75,6 @@ template <size_t _Numerator, size_t _Denominator, typename _ValueTy>
 struct Item {
   static constexpr _ValueTy value =
       std::is_floating_point<_ValueTy>::value
-          ? (_ValueTy)_Numerator / (_ValueTy)_Denominator
+          ? static_cast<_ValueTy>(_Numerator) / _Denominator
           : _Numerator;
 };
